@@ -31,6 +31,7 @@ export interface Project {
   image_url?: string;
   tech_stack: string[];
   status: ProjectStatus;
+  deadline?: string; // YYYY-MM-DD target delivery date
   notes?: string;
   // Payments & Receivables
   total_price: number;

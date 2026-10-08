@@ -105,19 +105,19 @@ export default function ProjectsPage() {
         </div>
 
         {/* Status Filter Tabs */}
-        <div className="flex items-center gap-1.5 overflow-x-auto pb-1 border-b border-slate-200">
+        <div className="flex items-center gap-1.5 overflow-x-auto pb-1 border-b border-slate-200 dark:border-slate-800">
           <button
             onClick={() => setActiveStatusFilter('all')}
             className={`px-3 py-1.5 rounded-lg text-xs font-semibold whitespace-nowrap transition-colors flex items-center gap-1.5 ${
               activeStatusFilter === 'all'
-                ? 'bg-slate-900 text-white shadow-xs'
-                : 'text-slate-600 hover:text-slate-900 hover:bg-slate-100'
+                ? 'bg-slate-900 dark:bg-slate-100 text-white dark:text-slate-900 shadow-xs'
+                : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-100 hover:bg-slate-100 dark:hover:bg-slate-800'
             }`}
           >
             All Projects
             <span
               className={`text-[10px] px-1.5 py-0.2 rounded-full ${
-                activeStatusFilter === 'all' ? 'bg-slate-700 text-slate-100' : 'bg-slate-200 text-slate-600'
+                activeStatusFilter === 'all' ? 'bg-slate-700 dark:bg-slate-300 text-slate-100 dark:text-slate-900' : 'bg-slate-200 dark:bg-slate-800 text-slate-600 dark:text-slate-400'
               }`}
             >
               {counts.all}
@@ -128,16 +128,16 @@ export default function ProjectsPage() {
             onClick={() => setActiveStatusFilter('in_development')}
             className={`px-3 py-1.5 rounded-lg text-xs font-semibold whitespace-nowrap transition-colors flex items-center gap-1.5 ${
               activeStatusFilter === 'in_development'
-                ? 'bg-slate-900 text-white shadow-xs'
-                : 'text-slate-600 hover:text-slate-900 hover:bg-slate-100'
+                ? 'bg-slate-900 dark:bg-slate-100 text-white dark:text-slate-900 shadow-xs'
+                : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-100 hover:bg-slate-100 dark:hover:bg-slate-800'
             }`}
           >
             In Development
             <span
               className={`text-[10px] px-1.5 py-0.2 rounded-full ${
                 activeStatusFilter === 'in_development'
-                  ? 'bg-slate-700 text-slate-100'
-                  : 'bg-indigo-100 text-indigo-800'
+                  ? 'bg-slate-700 dark:bg-slate-300 text-slate-100 dark:text-slate-900'
+                  : 'bg-indigo-100 dark:bg-indigo-950/60 text-indigo-800 dark:text-indigo-300'
               }`}
             >
               {counts.in_development}
@@ -148,16 +148,16 @@ export default function ProjectsPage() {
             onClick={() => setActiveStatusFilter('live')}
             className={`px-3 py-1.5 rounded-lg text-xs font-semibold whitespace-nowrap transition-colors flex items-center gap-1.5 ${
               activeStatusFilter === 'live'
-                ? 'bg-slate-900 text-white shadow-xs'
-                : 'text-slate-600 hover:text-slate-900 hover:bg-slate-100'
+                ? 'bg-slate-900 dark:bg-slate-100 text-white dark:text-slate-900 shadow-xs'
+                : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-100 hover:bg-slate-100 dark:hover:bg-slate-800'
             }`}
           >
             Live
             <span
               className={`text-[10px] px-1.5 py-0.2 rounded-full ${
                 activeStatusFilter === 'live'
-                  ? 'bg-slate-700 text-slate-100'
-                  : 'bg-emerald-100 text-emerald-800'
+                  ? 'bg-slate-700 dark:bg-slate-300 text-slate-100 dark:text-slate-900'
+                  : 'bg-emerald-100 dark:bg-emerald-950/60 text-emerald-800 dark:text-emerald-300'
               }`}
             >
               {counts.live}
@@ -168,16 +168,16 @@ export default function ProjectsPage() {
             onClick={() => setActiveStatusFilter('completed')}
             className={`px-3 py-1.5 rounded-lg text-xs font-semibold whitespace-nowrap transition-colors flex items-center gap-1.5 ${
               activeStatusFilter === 'completed'
-                ? 'bg-slate-900 text-white shadow-xs'
-                : 'text-slate-600 hover:text-slate-900 hover:bg-slate-100'
+                ? 'bg-slate-900 dark:bg-slate-100 text-white dark:text-slate-900 shadow-xs'
+                : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-100 hover:bg-slate-100 dark:hover:bg-slate-800'
             }`}
           >
             Completed
             <span
               className={`text-[10px] px-1.5 py-0.2 rounded-full ${
                 activeStatusFilter === 'completed'
-                  ? 'bg-slate-700 text-slate-100'
-                  : 'bg-blue-100 text-blue-800'
+                  ? 'bg-slate-700 dark:bg-slate-300 text-slate-100 dark:text-slate-900'
+                  : 'bg-blue-100 dark:bg-blue-950/60 text-blue-800 dark:text-blue-300'
               }`}
             >
               {counts.completed}
@@ -188,16 +188,16 @@ export default function ProjectsPage() {
             onClick={() => setActiveStatusFilter('maintenance')}
             className={`px-3 py-1.5 rounded-lg text-xs font-semibold whitespace-nowrap transition-colors flex items-center gap-1.5 ${
               activeStatusFilter === 'maintenance'
-                ? 'bg-slate-900 text-white shadow-xs'
-                : 'text-slate-600 hover:text-slate-900 hover:bg-slate-100'
+                ? 'bg-slate-900 dark:bg-slate-100 text-white dark:text-slate-900 shadow-xs'
+                : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-100 hover:bg-slate-100 dark:hover:bg-slate-800'
             }`}
           >
             Maintenance
             <span
               className={`text-[10px] px-1.5 py-0.2 rounded-full ${
                 activeStatusFilter === 'maintenance'
-                  ? 'bg-slate-700 text-slate-100'
-                  : 'bg-amber-100 text-amber-800'
+                  ? 'bg-slate-700 dark:bg-slate-300 text-slate-100 dark:text-slate-900'
+                  : 'bg-amber-100 dark:bg-amber-950/60 text-amber-800 dark:text-amber-300'
               }`}
             >
               {counts.maintenance}
@@ -208,16 +208,16 @@ export default function ProjectsPage() {
             onClick={() => setActiveStatusFilter('paused')}
             className={`px-3 py-1.5 rounded-lg text-xs font-semibold whitespace-nowrap transition-colors flex items-center gap-1.5 ${
               activeStatusFilter === 'paused'
-                ? 'bg-slate-900 text-white shadow-xs'
-                : 'text-slate-600 hover:text-slate-900 hover:bg-slate-100'
+                ? 'bg-slate-900 dark:bg-slate-100 text-white dark:text-slate-900 shadow-xs'
+                : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-100 hover:bg-slate-100 dark:hover:bg-slate-800'
             }`}
           >
             Paused
             <span
               className={`text-[10px] px-1.5 py-0.2 rounded-full ${
                 activeStatusFilter === 'paused'
-                  ? 'bg-slate-700 text-slate-100'
-                  : 'bg-slate-200 text-slate-600'
+                  ? 'bg-slate-700 dark:bg-slate-300 text-slate-100 dark:text-slate-900'
+                  : 'bg-slate-200 dark:bg-slate-800 text-slate-600 dark:text-slate-400'
               }`}
             >
               {counts.paused}
@@ -227,12 +227,12 @@ export default function ProjectsPage() {
 
         {/* Project Cards Grid */}
         {filteredProjects.length === 0 ? (
-          <div className="text-center py-16 px-4 bg-white rounded-2xl border border-dashed border-slate-200">
-            <div className="w-12 h-12 rounded-xl bg-slate-100 flex items-center justify-center text-slate-400 mx-auto mb-3">
+          <div className="text-center py-16 px-4 bg-white dark:bg-slate-900 rounded-2xl border border-dashed border-slate-200 dark:border-slate-800">
+            <div className="w-12 h-12 rounded-xl bg-slate-100 dark:bg-slate-800 flex items-center justify-center text-slate-400 dark:text-slate-500 mx-auto mb-3">
               <FiLayers className="w-6 h-6" />
             </div>
-            <h3 className="text-sm font-semibold text-slate-800">No projects found</h3>
-            <p className="text-xs text-slate-500 mt-1 max-w-sm mx-auto">
+            <h3 className="text-sm font-semibold text-slate-800 dark:text-slate-200">No projects found</h3>
+            <p className="text-xs text-slate-500 dark:text-slate-400 mt-1 max-w-sm mx-auto">
               {searchQuery
                 ? `No matching results for "${searchQuery}".`
                 : 'No projects match your current status or client filter.'}

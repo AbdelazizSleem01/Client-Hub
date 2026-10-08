@@ -51,6 +51,7 @@ CREATE TABLE IF NOT EXISTS public.projects (
     image_url TEXT,
     tech_stack TEXT[] DEFAULT '{}',
     status project_status DEFAULT 'in_development' NOT NULL,
+    deadline DATE,
     notes TEXT,
     
     -- Payments & Receivables

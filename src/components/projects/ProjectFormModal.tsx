@@ -21,6 +21,7 @@ import {
   FiUpload,
   FiTrash2,
   FiCheckCircle,
+  FiCalendar,
 } from 'react-icons/fi';
 
 export interface ProjectFormModalProps {
@@ -58,6 +59,7 @@ export const ProjectFormModal: React.FC<ProjectFormModalProps> = ({
   const [imageUrl, setImageUrl] = useState('');
   const [techStackInput, setTechStackInput] = useState('');
   const [status, setStatus] = useState<ProjectStatus>('in_development');
+  const [deadline, setDeadline] = useState('');
   const [notes, setNotes] = useState('');
   const [totalPrice, setTotalPrice] = useState<string>('0');
   const [amountPaid, setAmountPaid] = useState<string>('0');
@@ -112,6 +114,7 @@ export const ProjectFormModal: React.FC<ProjectFormModalProps> = ({
       setImageUrl(projectToEdit.image_url || '');
       setTechStackInput(projectToEdit.tech_stack ? projectToEdit.tech_stack.join(', ') : '');
       setStatus(projectToEdit.status || 'in_development');
+      setDeadline(projectToEdit.deadline || '');
       setNotes(projectToEdit.notes || '');
       setTotalPrice(String(projectToEdit.total_price || 0));
       setAmountPaid(String(projectToEdit.amount_paid || 0));
@@ -128,6 +131,7 @@ export const ProjectFormModal: React.FC<ProjectFormModalProps> = ({
       setImageUrl('');
       setTechStackInput('Next.js, TypeScript, Tailwind CSS');
       setStatus('in_development');
+      setDeadline('');
       setNotes('');
       setTotalPrice('0');
       setAmountPaid('0');
@@ -181,6 +185,7 @@ export const ProjectFormModal: React.FC<ProjectFormModalProps> = ({
         image_url: imageUrl.trim(),
         tech_stack,
         status,
+        deadline: deadline.trim() || undefined,
         notes: notes.trim(),
         total_price: numericTotal,
         amount_paid: numericPaid,
@@ -297,6 +302,71 @@ export const ProjectFormModal: React.FC<ProjectFormModalProps> = ({
               helperText="Separate multiple technologies with commas"
               disabled={isSubmitting}
             />
+
+            {/* Delivery Deadline */}
+            <div className="space-y-1.5">
+              <div className="flex items-center justify-between">
+                <label className="text-xs font-semibold text-slate-700 uppercase tracking-wider block">
+                  Delivery Deadline (Optional)
+                </label>
+                {deadline && (
+                  <button
+                    type="button"
+                    onClick={() => setDeadline('')}
+                    className="text-xs text-slate-400 hover:text-slate-600 transition-colors"
+                  >
+                    Clear Date
+                  </button>
+                )}
+              </div>
+              <div className="flex flex-col sm:flex-row gap-2.5 items-stretch sm:items-center">
+                <div className="flex-1">
+                  <Input
+                    type="date"
+                    value={deadline}
+                    onChange={(e) => setDeadline(e.target.value)}
+                    leftIcon={<FiCalendar className="w-4 h-4 text-slate-400" />}
+                    disabled={isSubmitting}
+                  />
+                </div>
+                {/* Quick Presets */}
+                <div className="flex items-center gap-1.5 overflow-x-auto pb-1 sm:pb-0">
+                  <button
+                    type="button"
+                    onClick={() => {
+                      const d = new Date();
+                      d.setDate(d.getDate() + 7);
+                      setDeadline(d.toISOString().split('T')[0]);
+                    }}
+                    className="px-2.5 py-1.5 rounded-lg border border-slate-200 text-xs font-medium text-slate-600 hover:bg-slate-50 transition-colors whitespace-nowrap"
+                  >
+                    +1 Week
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => {
+                      const d = new Date();
+                      d.setDate(d.getDate() + 14);
+                      setDeadline(d.toISOString().split('T')[0]);
+                    }}
+                    className="px-2.5 py-1.5 rounded-lg border border-slate-200 text-xs font-medium text-slate-600 hover:bg-slate-50 transition-colors whitespace-nowrap"
+                  >
+                    +2 Weeks
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => {
+                      const d = new Date();
+                      d.setMonth(d.getMonth() + 1);
+                      setDeadline(d.toISOString().split('T')[0]);
+                    }}
+                    className="px-2.5 py-1.5 rounded-lg border border-slate-200 text-xs font-medium text-slate-600 hover:bg-slate-50 transition-colors whitespace-nowrap"
+                  >
+                    +1 Month
+                  </button>
+                </div>
+              </div>
+            </div>
 
             {/* Project Screenshot / Image & Upload */}
             <div className="space-y-2">

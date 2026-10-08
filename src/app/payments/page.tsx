@@ -11,7 +11,8 @@ import { Input } from '@/ui/Input';
 import { useData } from '@/context/DataContext';
 import { formatCurrency } from '@/lib/utils';
 import { Project, PaymentStatus } from '@/types';
-import { FiDollarSign, FiSearch, FiCreditCard, FiEdit2, FiCheckCircle } from 'react-icons/fi';
+import { InvoiceModal } from '@/components/invoices/InvoiceModal';
+import { FiDollarSign, FiSearch, FiCreditCard, FiEdit2, FiCheckCircle, FiFileText } from 'react-icons/fi';
 
 type PaymentFilter = 'all' | PaymentStatus;
 
@@ -22,6 +23,7 @@ export default function PaymentsPage() {
   const [activeFilter, setActiveFilter] = useState<PaymentFilter>('all');
   const [selectedProjectForPayment, setSelectedProjectForPayment] = useState<Project | null>(null);
   const [selectedProjectForEdit, setSelectedProjectForEdit] = useState<Project | null>(null);
+  const [selectedProjectForInvoice, setSelectedProjectForInvoice] = useState<Project | null>(null);
 
   // Filter projects by payment status and query
   const filteredProjects = useMemo(() => {
@@ -69,14 +71,14 @@ export default function PaymentsPage() {
               onClick={() => setActiveFilter('all')}
               className={`px-3 py-1.5 rounded-lg text-xs font-semibold whitespace-nowrap transition-colors flex items-center gap-1.5 ${
                 activeFilter === 'all'
-                  ? 'bg-slate-900 text-white shadow-xs'
-                  : 'text-slate-600 hover:text-slate-900 hover:bg-slate-100'
+                  ? 'bg-slate-900 dark:bg-slate-100 text-white dark:text-slate-900 shadow-xs'
+                  : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-100 hover:bg-slate-100 dark:hover:bg-slate-800'
               }`}
             >
               All Items
               <span
                 className={`text-[10px] px-1.5 py-0.2 rounded-full ${
-                  activeFilter === 'all' ? 'bg-slate-700 text-slate-100' : 'bg-slate-200 text-slate-600'
+                  activeFilter === 'all' ? 'bg-slate-700 dark:bg-slate-300 text-slate-100 dark:text-slate-900' : 'bg-slate-200 dark:bg-slate-800 text-slate-600 dark:text-slate-400'
                 }`}
               >
                 {counts.all}
@@ -87,14 +89,14 @@ export default function PaymentsPage() {
               onClick={() => setActiveFilter('unpaid')}
               className={`px-3 py-1.5 rounded-lg text-xs font-semibold whitespace-nowrap transition-colors flex items-center gap-1.5 ${
                 activeFilter === 'unpaid'
-                  ? 'bg-slate-900 text-white shadow-xs'
-                  : 'text-slate-600 hover:text-slate-900 hover:bg-slate-100'
+                  ? 'bg-slate-900 dark:bg-slate-100 text-white dark:text-slate-900 shadow-xs'
+                  : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-100 hover:bg-slate-100 dark:hover:bg-slate-800'
               }`}
             >
               Unpaid
               <span
                 className={`text-[10px] px-1.5 py-0.2 rounded-full ${
-                  activeFilter === 'unpaid' ? 'bg-slate-700 text-slate-100' : 'bg-rose-100 text-rose-800'
+                  activeFilter === 'unpaid' ? 'bg-slate-700 dark:bg-slate-300 text-slate-100 dark:text-slate-900' : 'bg-rose-100 dark:bg-rose-950/60 text-rose-800 dark:text-rose-300'
                 }`}
               >
                 {counts.unpaid}
@@ -105,14 +107,14 @@ export default function PaymentsPage() {
               onClick={() => setActiveFilter('partially_paid')}
               className={`px-3 py-1.5 rounded-lg text-xs font-semibold whitespace-nowrap transition-colors flex items-center gap-1.5 ${
                 activeFilter === 'partially_paid'
-                  ? 'bg-slate-900 text-white shadow-xs'
-                  : 'text-slate-600 hover:text-slate-900 hover:bg-slate-100'
+                  ? 'bg-slate-900 dark:bg-slate-100 text-white dark:text-slate-900 shadow-xs'
+                  : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-100 hover:bg-slate-100 dark:hover:bg-slate-800'
               }`}
             >
               Partially Paid
               <span
                 className={`text-[10px] px-1.5 py-0.2 rounded-full ${
-                  activeFilter === 'partially_paid' ? 'bg-slate-700 text-slate-100' : 'bg-amber-100 text-amber-800'
+                  activeFilter === 'partially_paid' ? 'bg-slate-700 dark:bg-slate-300 text-slate-100 dark:text-slate-900' : 'bg-amber-100 dark:bg-amber-950/60 text-amber-800 dark:text-amber-300'
                 }`}
               >
                 {counts.partially_paid}
@@ -123,14 +125,14 @@ export default function PaymentsPage() {
               onClick={() => setActiveFilter('paid')}
               className={`px-3 py-1.5 rounded-lg text-xs font-semibold whitespace-nowrap transition-colors flex items-center gap-1.5 ${
                 activeFilter === 'paid'
-                  ? 'bg-slate-900 text-white shadow-xs'
-                  : 'text-slate-600 hover:text-slate-900 hover:bg-slate-100'
+                  ? 'bg-slate-900 dark:bg-slate-100 text-white dark:text-slate-900 shadow-xs'
+                  : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-100 hover:bg-slate-100 dark:hover:bg-slate-800'
               }`}
             >
               Fully Paid
               <span
                 className={`text-[10px] px-1.5 py-0.2 rounded-full ${
-                  activeFilter === 'paid' ? 'bg-slate-700 text-slate-100' : 'bg-emerald-100 text-emerald-800'
+                  activeFilter === 'paid' ? 'bg-slate-700 dark:bg-slate-300 text-slate-100 dark:text-slate-900' : 'bg-emerald-100 dark:bg-emerald-950/60 text-emerald-800 dark:text-emerald-300'
                 }`}
               >
                 {counts.paid}
@@ -150,14 +152,14 @@ export default function PaymentsPage() {
         </div>
 
         {/* Payments Table / List View */}
-        <div className="bg-white border border-slate-200/80 rounded-2xl overflow-hidden shadow-xs">
+        <div className="bg-white dark:bg-slate-900 border border-slate-200/80 dark:border-slate-800 rounded-2xl overflow-hidden shadow-xs">
           {filteredProjects.length === 0 ? (
             <div className="text-center py-16 px-4">
-              <div className="w-12 h-12 rounded-xl bg-slate-100 flex items-center justify-center text-slate-400 mx-auto mb-3">
+              <div className="w-12 h-12 rounded-xl bg-slate-100 dark:bg-slate-800 flex items-center justify-center text-slate-400 dark:text-slate-500 mx-auto mb-3">
                 <FiDollarSign className="w-6 h-6" />
               </div>
-              <h3 className="text-sm font-semibold text-slate-800">No payment records found</h3>
-              <p className="text-xs text-slate-500 mt-1">
+              <h3 className="text-sm font-semibold text-slate-800 dark:text-slate-200">No payment records found</h3>
+              <p className="text-xs text-slate-500 dark:text-slate-400 mt-1">
                 {searchQuery
                   ? `No matches for "${searchQuery}".`
                   : 'No deliverables match the selected payment status filter.'}
@@ -167,7 +169,7 @@ export default function PaymentsPage() {
             <div className="overflow-x-auto">
               <table className="w-full text-left border-collapse text-sm">
                 <thead>
-                  <tr className="bg-slate-50/75 border-b border-slate-200/70 text-[11px] font-semibold text-slate-500 uppercase tracking-wider">
+                  <tr className="bg-slate-50/75 dark:bg-slate-950/50 border-b border-slate-200/70 dark:border-slate-800 text-[11px] font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider">
                     <th className="py-3 px-4">Project & Client</th>
                     <th className="py-3 px-4">Total Agreed</th>
                     <th className="py-3 px-4">Amount Paid</th>
@@ -176,31 +178,31 @@ export default function PaymentsPage() {
                     <th className="py-3 px-4 text-right">Actions</th>
                   </tr>
                 </thead>
-                <tbody className="divide-y divide-slate-100">
+                <tbody className="divide-y divide-slate-100 dark:divide-slate-800">
                   {filteredProjects.map((project) => {
                     const isDue = project.remaining_amount > 0;
                     return (
                       <tr
                         key={project.id}
-                        className="hover:bg-slate-50/60 transition-colors group"
+                        className="hover:bg-slate-50/60 dark:hover:bg-slate-800/40 transition-colors group"
                       >
                         {/* Project & Client */}
                         <td className="py-3.5 px-4 min-w-[200px]">
-                          <div className="font-semibold text-slate-900 group-hover:text-slate-700">
+                          <div className="font-semibold text-slate-900 dark:text-slate-100 group-hover:text-slate-700 dark:group-hover:text-slate-300">
                             {project.name}
                           </div>
-                          <div className="text-xs text-slate-500 mt-0.5">
+                          <div className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">
                             {project.client_name || 'Individual client'}
                           </div>
                         </td>
 
                         {/* Total Price */}
-                        <td className="py-3.5 px-4 font-medium text-slate-800 whitespace-nowrap">
+                        <td className="py-3.5 px-4 font-medium text-slate-800 dark:text-slate-200 whitespace-nowrap">
                           {formatCurrency(project.total_price, project.currency)}
                         </td>
 
                         {/* Amount Paid */}
-                        <td className="py-3.5 px-4 text-emerald-700 font-medium whitespace-nowrap">
+                        <td className="py-3.5 px-4 text-emerald-700 dark:text-emerald-400 font-medium whitespace-nowrap">
                           {formatCurrency(project.amount_paid, project.currency)}
                         </td>
 
@@ -208,13 +210,13 @@ export default function PaymentsPage() {
                         <td className="py-3.5 px-4 whitespace-nowrap">
                           <span
                             className={`font-bold inline-block ${
-                              isDue ? 'text-amber-900 font-mono text-sm' : 'text-slate-400 font-normal'
+                              isDue ? 'text-amber-900 dark:text-amber-300 font-mono text-sm' : 'text-slate-400 dark:text-slate-500 font-normal'
                             }`}
                           >
                             {formatCurrency(project.remaining_amount, project.currency)}
                           </span>
                           {isDue && (
-                            <span className="text-[10px] text-amber-700 block font-sans font-medium">
+                            <span className="text-[10px] text-amber-700 dark:text-amber-400 block font-sans font-medium">
                               Pending collection
                             </span>
                           )}
@@ -243,6 +245,14 @@ export default function PaymentsPage() {
                                 Paid
                               </span>
                             )}
+
+                            <button
+                              onClick={() => setSelectedProjectForInvoice(project)}
+                              className="p-1.5 rounded-lg text-slate-400 hover:text-slate-800 hover:bg-slate-100 transition-colors"
+                              title="Invoice / Receipt"
+                            >
+                              <FiFileText className="w-3.5 h-3.5" />
+                            </button>
 
                             <button
                               onClick={() => setSelectedProjectForEdit(project)}
@@ -276,6 +286,15 @@ export default function PaymentsPage() {
         isOpen={Boolean(selectedProjectForEdit)}
         onClose={() => setSelectedProjectForEdit(null)}
       />
+
+      {/* Invoice & Receipt Modal */}
+      {selectedProjectForInvoice && (
+        <InvoiceModal
+          project={selectedProjectForInvoice}
+          isOpen={Boolean(selectedProjectForInvoice)}
+          onClose={() => setSelectedProjectForInvoice(null)}
+        />
+      )}
     </AppShell>
   );
 }

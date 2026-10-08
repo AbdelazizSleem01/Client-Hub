@@ -32,17 +32,17 @@ export const AppShell: React.FC<AppShellProps> = ({ children, title, subtitle })
 
   if (isLoading || !user) {
     return (
-      <div className="min-h-screen bg-slate-50 flex items-center justify-center">
+      <div className="min-h-screen bg-slate-50 dark:bg-slate-950 flex items-center justify-center">
         <div className="flex flex-col items-center gap-3">
-          <div className="w-8 h-8 border-2 border-slate-900 border-t-transparent rounded-full animate-spin" />
-          <p className="text-xs text-slate-500 font-medium">Loading workspace...</p>
+          <div className="w-8 h-8 border-2 border-slate-900 dark:border-slate-100 border-t-transparent rounded-full animate-spin" />
+          <p className="text-xs text-slate-500 dark:text-slate-400 font-medium">Loading workspace...</p>
         </div>
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen bg-slate-50 flex">
+    <div className="min-h-screen bg-slate-50 dark:bg-slate-950 text-slate-900 dark:text-slate-100 flex transition-colors duration-200">
       {/* Desktop Sidebar Container with smooth width transition */}
       <div
         className={cn(
@@ -60,10 +60,10 @@ export const AppShell: React.FC<AppShellProps> = ({ children, title, subtitle })
             className="fixed inset-0 bg-slate-900/40 backdrop-blur-xs transition-opacity animate-in fade-in-0 duration-200"
             onClick={closeMobile}
           />
-          <div className="relative w-64 bg-white h-full z-10 flex flex-col shadow-2xl animate-in slide-in-from-left duration-200">
+          <div className="relative w-64 bg-white dark:bg-slate-900 h-full z-10 flex flex-col shadow-2xl animate-in slide-in-from-left duration-200">
             <button
               onClick={closeMobile}
-              className="absolute top-4 right-3 p-1.5 rounded-lg text-slate-400 hover:text-slate-700 hover:bg-slate-100"
+              className="absolute top-4 right-3 p-1.5 rounded-lg text-slate-400 hover:text-slate-700 dark:hover:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800"
               aria-label="Close sidebar"
             >
               <FiX className="w-4 h-4" />

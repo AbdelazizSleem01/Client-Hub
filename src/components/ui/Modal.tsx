@@ -70,17 +70,17 @@ export const Modal: React.FC<ModalProps> = ({
       <div
         ref={contentRef}
         className={cn(
-          'relative w-full bg-white rounded-2xl border border-slate-200/90 shadow-2xl z-10 flex flex-col max-h-[90vh] overflow-hidden animate-in fade-in-0 zoom-in-95 duration-200',
+          'relative w-full bg-white dark:bg-slate-900 rounded-2xl border border-slate-200/90 dark:border-slate-800 shadow-2xl z-10 flex flex-col max-h-[90vh] overflow-hidden animate-in fade-in-0 zoom-in-95 duration-200',
           sizeClasses[size],
           className
         )}
       >
         {/* Header */}
-        <div className="flex items-start justify-between p-5 border-b border-slate-100 shrink-0">
+        <div className="flex items-start justify-between p-5 border-b border-slate-100 dark:border-slate-800 shrink-0">
           <div>
-            <h2 className="text-base sm:text-lg font-semibold text-slate-900 leading-snug">{title}</h2>
+            <h2 className="text-base sm:text-lg font-semibold text-slate-900 dark:text-slate-100 leading-snug">{title}</h2>
             {description && (
-              <p className="text-xs sm:text-sm text-slate-500 mt-0.5" suppressHydrationWarning>
+              <p className="text-xs sm:text-sm text-slate-500 dark:text-slate-400 mt-0.5" suppressHydrationWarning>
                 {description}
               </p>
             )}
@@ -88,7 +88,7 @@ export const Modal: React.FC<ModalProps> = ({
           <button
             type="button"
             onClick={onClose}
-            className="p-1.5 rounded-lg text-slate-400 hover:text-slate-700 hover:bg-slate-100 transition-colors ml-4"
+            className="p-1.5 rounded-lg text-slate-400 hover:text-slate-700 dark:hover:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors ml-4"
             aria-label="Close dialog"
           >
             <FiX className="w-4 h-4" />
@@ -96,7 +96,7 @@ export const Modal: React.FC<ModalProps> = ({
         </div>
 
         {/* Scrollable Body */}
-        <div className="p-5 overflow-y-auto space-y-4 text-sm text-slate-700">{children}</div>
+        <div className="p-5 overflow-y-auto space-y-4 text-sm text-slate-700 dark:text-slate-300">{children}</div>
       </div>
     </div>
   );

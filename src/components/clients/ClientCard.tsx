@@ -62,12 +62,12 @@ export const ClientCard: React.FC<ClientCardProps> = ({ client, onView, onEdit }
             <div className="min-w-0">
               <h3
                 onClick={() => onView(client)}
-                className="font-semibold text-slate-900 text-base leading-snug truncate hover:text-slate-700 cursor-pointer"
+                className="font-semibold text-slate-900 dark:text-slate-100 text-base leading-snug truncate hover:text-slate-700 dark:hover:text-slate-300 cursor-pointer"
               >
                 {client.name}
               </h3>
               {client.company && (
-                <p className="text-xs font-medium text-slate-500 truncate mt-0.5">
+                <p className="text-xs font-medium text-slate-500 dark:text-slate-400 truncate mt-0.5">
                   {client.company}
                 </p>
               )}
@@ -82,7 +82,7 @@ export const ClientCard: React.FC<ClientCardProps> = ({ client, onView, onEdit }
                 href={`https://wa.me/${whatsappClean}`}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="p-1.5 rounded-md text-emerald-600 bg-emerald-50 hover:bg-emerald-100 transition-colors"
+                className="p-1.5 rounded-md text-emerald-600 dark:text-emerald-400 bg-emerald-50 dark:bg-emerald-950/50 hover:bg-emerald-100 dark:hover:bg-emerald-900/50 transition-colors"
                 title={`WhatsApp: ${client.whatsapp || client.phone}`}
               >
                 <FiMessageCircle className="w-3.5 h-3.5" />
@@ -92,7 +92,7 @@ export const ClientCard: React.FC<ClientCardProps> = ({ client, onView, onEdit }
             {client.email ? (
               <a
                 href={`mailto:${client.email}`}
-                className="p-1.5 rounded-md text-slate-600 bg-slate-100 hover:bg-slate-200 transition-colors"
+                className="p-1.5 rounded-md text-slate-600 dark:text-slate-300 bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors"
                 title={`Email: ${client.email}`}
               >
                 <FiMail className="w-3.5 h-3.5" />
@@ -102,7 +102,7 @@ export const ClientCard: React.FC<ClientCardProps> = ({ client, onView, onEdit }
             {client.phone ? (
               <a
                 href={`tel:${client.phone}`}
-                className="p-1.5 rounded-md text-slate-600 bg-slate-100 hover:bg-slate-200 transition-colors"
+                className="p-1.5 rounded-md text-slate-600 dark:text-slate-300 bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors"
                 title={`Phone: ${client.phone}`}
               >
                 <FiPhone className="w-3.5 h-3.5" />
@@ -112,22 +112,22 @@ export const ClientCard: React.FC<ClientCardProps> = ({ client, onView, onEdit }
 
           {/* Notes preview */}
           {client.notes && (
-            <p className="text-xs text-slate-500 line-clamp-2 mb-4 leading-relaxed bg-slate-50 p-2.5 rounded-lg border border-slate-100">
+            <p className="text-xs text-slate-500 dark:text-slate-400 line-clamp-2 mb-4 leading-relaxed bg-slate-50 dark:bg-slate-800/50 p-2.5 rounded-lg border border-slate-100 dark:border-slate-800">
               {client.notes}
             </p>
           )}
         </div>
 
         {/* Card Footer */}
-        <div className="pt-3 border-t border-slate-100 flex items-center justify-between text-xs mt-auto">
+        <div className="pt-3 border-t border-slate-100 dark:border-slate-800 flex items-center justify-between text-xs mt-auto">
           <div className="flex items-center gap-3">
-            <span className="flex items-center gap-1 text-slate-500 font-medium">
-              <FiLayers className="w-3.5 h-3.5 text-slate-400" />
+            <span className="flex items-center gap-1 text-slate-500 dark:text-slate-400 font-medium">
+              <FiLayers className="w-3.5 h-3.5 text-slate-400 dark:text-slate-500" />
               {projects.length} {projects.length === 1 ? 'proj' : 'projs'}
             </span>
             <span
               className={`flex items-center gap-0.5 font-semibold ${
-                totalRemaining > 0 ? 'text-amber-700' : 'text-slate-400'
+                totalRemaining > 0 ? 'text-amber-700 dark:text-amber-400' : 'text-slate-400 dark:text-slate-500'
               }`}
               title="Remaining Balance"
             >
@@ -140,21 +140,21 @@ export const ClientCard: React.FC<ClientCardProps> = ({ client, onView, onEdit }
           <div className="flex items-center gap-1">
             <button
               onClick={() => onView(client)}
-              className="p-1.5 rounded-md text-slate-400 hover:text-slate-700 hover:bg-slate-100 transition-colors"
+              className="p-1.5 rounded-md text-slate-400 dark:text-slate-500 hover:text-slate-700 dark:hover:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors"
               title="View Client Details"
             >
               <FiEye className="w-3.5 h-3.5" />
             </button>
             <button
               onClick={() => onEdit(client)}
-              className="p-1.5 rounded-md text-slate-400 hover:text-slate-700 hover:bg-slate-100 transition-colors"
+              className="p-1.5 rounded-md text-slate-400 dark:text-slate-500 hover:text-slate-700 dark:hover:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors"
               title="Edit Client"
             >
               <FiEdit2 className="w-3.5 h-3.5" />
             </button>
             <button
               onClick={() => setShowDeleteConfirm(true)}
-              className="p-1.5 rounded-md text-slate-400 hover:text-rose-600 hover:bg-rose-50 transition-colors"
+              className="p-1.5 rounded-md text-slate-400 hover:text-rose-600 hover:bg-rose-50 dark:hover:bg-rose-950/40 transition-colors"
               title="Delete Client"
             >
               <FiTrash2 className="w-3.5 h-3.5" />
