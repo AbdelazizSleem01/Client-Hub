@@ -4,25 +4,26 @@ import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { useAuth, RememberDuration } from '@/context/AuthContext';
 import { useToast } from '@/context/ToastContext';
+import { useTheme } from '@/context/ThemeContext';
+import { useWorkspace } from '@/context/WorkspaceContext';
 import { Input } from '@/ui/Input';
 import { Button } from '@/ui/Button';
 import {
   FiLock,
   FiBriefcase,
   FiMail,
-  FiCheckCircle,
   FiEye,
   FiEyeOff,
-  FiShield,
   FiClock,
+  FiSun,
+  FiMoon,
 } from 'react-icons/fi';
-
-import { useWorkspace } from '@/context/WorkspaceContext';
 
 export default function LoginPage() {
   const router = useRouter();
-  const { user, login, signUp, isDemoMode, isLoading } = useAuth();
+  const { user, login, signUp, isLoading } = useAuth();
   const { settings: workspaceSettings } = useWorkspace();
+  const { isDark, toggleTheme } = useTheme();
   const toast = useToast();
 
   const [mode, setMode] = useState<'signin' | 'signup'>('signin');
@@ -58,7 +59,6 @@ export default function LoginPage() {
       const res = await signUp(password, email, effectiveDuration);
       if (res.success) {
         toast.success('Owner account created successfully!');
-        // Try logging in immediately if not already set
         const loginRes = await login(password, email, effectiveDuration);
         if (loginRes.success) {
           router.push('/dashboard');
@@ -84,24 +84,25 @@ export default function LoginPage() {
     setIsSubmitting(false);
   };
 
-  const handleQuickDemoLogin = async () => {
-    setPassword('password');
-    setIsSubmitting(true);
-    const res = await login('password', 'owner@workspace.dev', rememberMe ? rememberDuration : 'session');
-    if (res.success) {
-      toast.success('Entered dashboard via Demo Mode');
-      router.push('/dashboard');
-    } else {
-      setIsSubmitting(false);
-    }
-  };
-
   return (
-    <div className="min-h-screen bg-slate-50 flex flex-col justify-center py-12 px-4 sm:px-6 lg:px-8">
+    <div className="min-h-screen bg-slate-50 dark:bg-slate-950 flex flex-col justify-center py-12 px-4 sm:px-6 lg:px-8 relative select-none">
+      {/* Top-Right Theme Toggle */}
+      <div className="absolute top-4 right-4 sm:top-6 sm:right-6">
+        <button
+          type="button"
+          onClick={toggleTheme}
+          className="p-2.5 rounded-xl text-slate-500 hover:text-slate-800 dark:text-slate-400 dark:hover:text-slate-200 bg-white dark:bg-slate-900 border border-slate-200/80 dark:border-slate-800 shadow-xs hover:shadow-sm transition-all"
+          title={isDark ? 'Switch to Light Mode' : 'Switch to Dark Mode'}
+          aria-label="Toggle theme"
+        >
+          {isDark ? <FiSun className="w-4 h-4 text-amber-400" /> : <FiMoon className="w-4 h-4 text-slate-600" />}
+        </button>
+      </div>
+
       <div className="sm:mx-auto sm:w-full sm:max-w-md">
         {/* Brand Icon & Heading */}
         <div className="text-center">
-          <div className="mx-auto w-12 h-12 rounded-xl bg-slate-900 text-white flex items-center justify-center shadow-sm overflow-hidden p-1.5">
+          <div className="mx-auto w-12 h-12 rounded-xl bg-slate-900 text-white flex items-center justify-center shadow-xs overflow-hidden p-1.5 border border-slate-800">
             {workspaceSettings.logoUrl ? (
               // eslint-disable-next-line @next/next/no-img-element
               <img
@@ -113,18 +114,18 @@ export default function LoginPage() {
               <FiBriefcase className="w-6 h-6" />
             )}
           </div>
-          <h2 className="mt-4 text-xl font-bold text-slate-900 tracking-tight">
+          <h2 className="mt-4 text-xl font-bold text-slate-900 dark:text-slate-100 tracking-tight">
             {workspaceSettings.name || 'Client Management Dashboard'}
           </h2>
-          <p className="mt-1 text-xs text-slate-500">
+          <p className="mt-1 text-xs text-slate-500 dark:text-slate-400">
             {workspaceSettings.tagline || 'Private owner portal for clients, projects & receivables'}
           </p>
         </div>
 
         {/* Card */}
-        <div className="mt-8 bg-white py-8 px-6 shadow-sm border border-slate-200/80 rounded-2xl sm:px-8">
+        <div className="mt-8 bg-white dark:bg-slate-900 py-8 px-6 shadow-sm border border-slate-200/80 dark:border-slate-800 rounded-2xl sm:px-8">
           {/* Mode Switcher Tabs */}
-          <div className="flex rounded-xl bg-slate-100 p-1 mb-6">
+          <div className="flex rounded-xl bg-slate-100 dark:bg-slate-950 p-1 mb-6 border border-transparent dark:border-slate-800/80">
             <button
               type="button"
               onClick={() => {
@@ -133,8 +134,8 @@ export default function LoginPage() {
               }}
               className={`flex-1 py-1.5 text-xs font-semibold rounded-lg transition-all ${
                 mode === 'signin'
-                  ? 'bg-white text-slate-900 shadow-xs'
-                  : 'text-slate-600 hover:text-slate-900'
+                  ? 'bg-white dark:bg-slate-800 text-slate-900 dark:text-slate-100 shadow-xs'
+                  : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-200'
               }`}
             >
               Sign In
@@ -147,8 +148,8 @@ export default function LoginPage() {
               }}
               className={`flex-1 py-1.5 text-xs font-semibold rounded-lg transition-all ${
                 mode === 'signup'
-                  ? 'bg-white text-slate-900 shadow-xs'
-                  : 'text-slate-600 hover:text-slate-900'
+                  ? 'bg-white dark:bg-slate-800 text-slate-900 dark:text-slate-100 shadow-xs'
+                  : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-200'
               }`}
             >
               Create Account
@@ -182,14 +183,14 @@ export default function LoginPage() {
                   <button
                     type="button"
                     onClick={() => setShowPassword(!showPassword)}
-                    className="p-1 text-slate-400 hover:text-slate-700 transition-colors focus:outline-none"
+                    className="p-1 text-slate-400 hover:text-slate-700 dark:hover:text-slate-200 transition-colors focus:outline-none"
                     title={showPassword ? 'Hide password' : 'Show password'}
                     aria-label={showPassword ? 'Hide password' : 'Show password'}
                   >
                     {showPassword ? (
-                      <FiEyeOff className="w-4 h-4 text-slate-600" />
+                      <FiEyeOff className="w-4 h-4 text-slate-600 dark:text-slate-300" />
                     ) : (
-                      <FiEye className="w-4 h-4 text-slate-400" />
+                      <FiEye className="w-4 h-4 text-slate-400 dark:text-slate-500" />
                     )}
                   </button>
                 }
@@ -201,31 +202,31 @@ export default function LoginPage() {
             </div>
 
             {/* Remember Session */}
-            <div className="pt-1 pb-1 border-t border-b border-slate-100 flex flex-col gap-2">
+            <div className="pt-2 pb-2 border-t border-b border-slate-100 dark:border-slate-800 flex flex-col gap-2">
               <div className="flex items-center justify-between">
                 <label className="flex items-center gap-2 cursor-pointer select-none">
                   <input
                     type="checkbox"
                     checked={rememberMe}
                     onChange={(e) => setRememberMe(e.target.checked)}
-                    className="w-4 h-4 rounded border-slate-300 text-slate-900 focus:ring-slate-900 focus:ring-offset-0 cursor-pointer"
+                    className="w-4 h-4 rounded border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-950 text-slate-900 dark:text-slate-100 focus:ring-slate-900 dark:focus:ring-slate-400 cursor-pointer"
                   />
-                  <span className="text-xs font-medium text-slate-700">
+                  <span className="text-xs font-medium text-slate-700 dark:text-slate-300">
                     Stay Signed In
                   </span>
                 </label>
 
                 {rememberMe && (
-                  <div className="flex items-center gap-1 text-[11px] font-medium text-slate-500 bg-slate-50 px-2 py-0.5 rounded-md border border-slate-200">
-                    <FiClock className="w-3 h-3 text-slate-400" />
+                  <div className="flex items-center gap-1.5 text-[11px] font-medium text-slate-500 dark:text-slate-400 bg-slate-50 dark:bg-slate-950 px-2.5 py-1 rounded-md border border-slate-200/90 dark:border-slate-800">
+                    <FiClock className="w-3 h-3 text-slate-400 dark:text-slate-500" />
                     <span>Duration:</span>
                     <select
                       value={rememberDuration}
                       onChange={(e) => setRememberDuration(e.target.value as RememberDuration)}
-                      className="bg-transparent font-semibold text-slate-800 outline-none cursor-pointer"
+                      className="bg-transparent font-semibold text-slate-800 dark:text-slate-200 outline-none cursor-pointer"
                     >
-                      <option value="month">30 Days</option>
-                      <option value="week">7 Days</option>
+                      <option value="month" className="bg-white dark:bg-slate-900 text-slate-900 dark:text-slate-100">30 Days</option>
+                      <option value="week" className="bg-white dark:bg-slate-900 text-slate-900 dark:text-slate-100">7 Days</option>
                     </select>
                   </div>
                 )}
@@ -242,11 +243,9 @@ export default function LoginPage() {
               {mode === 'signin' ? 'Sign In to Dashboard' : 'Create Owner Account'}
             </Button>
           </form>
-
-      
         </div>
 
-        <p className="mt-6 text-center text-xs text-slate-400">
+        <p className="mt-6 text-center text-xs text-slate-400 dark:text-slate-500">
           Secured with Supabase Auth & PostgreSQL Row-Level Security
         </p>
       </div>
