@@ -28,13 +28,18 @@ export interface ProjectCardProps {
 }
 
 export const ProjectCard: React.FC<ProjectCardProps> = ({ project, onEdit, priority = false }) => {
-  const { deleteProject } = useData();
+  const { deleteProject, clients } = useData();
   const toast = useToast();
   const [showDeleteConfirm, setShowDeleteConfirm] = useState(false);
   const [showPaymentModal, setShowPaymentModal] = useState(false);
   const [showInvoiceModal, setShowInvoiceModal] = useState(false);
   const [isDeleting, setIsDeleting] = useState(false);
   const [imageError, setImageError] = useState(false);
+
+  const matchedClient = clients.find((c) => c.id === project.client_id);
+  const clientDisplayName =
+    project.client_name ||
+    (matchedClient ? (matchedClient.company ? `${matchedClient.name} (${matchedClient.company})` : matchedClient.name) : '');
 
   const deadlineInfo = getDeadlineInfo(project.deadline);
 
@@ -96,9 +101,9 @@ export const ProjectCard: React.FC<ProjectCardProps> = ({ project, onEdit, prior
           {/* Content Body */}
           <div className="p-5">
             {/* Client Denormalized Tag */}
-            {project.client_name && (
+            {clientDisplayName && (
               <span className="text-[11px] font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider block mb-1">
-                {project.client_name}
+                {clientDisplayName}
               </span>
             )}
 

@@ -49,8 +49,16 @@ export const DataProvider: React.FC<{ children: React.ReactNode }> = ({ children
         ]);
 
         if (!clientsRes.error && !projectsRes.error && clientsRes.data) {
-          setClients(clientsRes.data as Client[]);
-          setProjects((projectsRes.data || []) as Project[]);
+          const loadedClients = clientsRes.data as Client[];
+          const clientsMap = new Map(
+            loadedClients.map((c) => [c.id, c.company || c.name || ''])
+          );
+          const enrichedProjects = ((projectsRes.data || []) as Project[]).map((p) => ({
+            ...p,
+            client_name: p.client_name || clientsMap.get(p.client_id) || '',
+          }));
+          setClients(loadedClients);
+          setProjects(enrichedProjects);
           setIsLoading(false);
           return;
         }
@@ -66,8 +74,17 @@ export const DataProvider: React.FC<{ children: React.ReactNode }> = ({ children
 
       if (savedClients && savedProjects) {
         try {
-          setClients(JSON.parse(savedClients));
-          setProjects(JSON.parse(savedProjects));
+          const loadedClients: Client[] = JSON.parse(savedClients);
+          const loadedProjects: Project[] = JSON.parse(savedProjects);
+          const clientsMap = new Map(
+            loadedClients.map((c) => [c.id, c.company || c.name || ''])
+          );
+          const enrichedProjects = loadedProjects.map((p) => ({
+            ...p,
+            client_name: p.client_name || clientsMap.get(p.client_id) || '',
+          }));
+          setClients(loadedClients);
+          setProjects(enrichedProjects);
           setIsLoading(false);
           return;
         } catch {
@@ -227,7 +244,10 @@ export const DataProvider: React.FC<{ children: React.ReactNode }> = ({ children
           .select()
           .single();
         if (!error && inserted) {
-          const projectResult = inserted as Project;
+          const projectResult: Project = {
+            ...(inserted as Project),
+            client_name: client_name || (client ? (client.company || client.name) : ''),
+          };
           setProjects((prev) => [projectResult, ...prev]);
           return projectResult;
         }
@@ -250,6 +270,13 @@ export const DataProvider: React.FC<{ children: React.ReactNode }> = ({ children
     const remaining_amount = calculateRemaining(total_price, amount_paid);
     const payment_status = data.payment_status || determinePaymentStatus(total_price, amount_paid);
 
+    const targetClient = data.client_id
+      ? clients.find((c) => c.id === data.client_id)
+      : clients.find((c) => c.id === existing?.client_id);
+    const resolvedClientName = targetClient
+      ? (targetClient.company || targetClient.name)
+      : (data.client_name || existing?.client_name || '');
+
     if (isSupabaseConfigured() && user) {
       try {
         const supabase = createClient();
@@ -265,7 +292,10 @@ export const DataProvider: React.FC<{ children: React.ReactNode }> = ({ children
           .select()
           .single();
         if (!error && updated) {
-          const projResult = updated as Project;
+          const projResult: Project = {
+            ...(updated as Project),
+            client_name: resolvedClientName,
+          };
           setProjects((prev) => prev.map((p) => (p.id === id ? projResult : p)));
           return projResult;
         }

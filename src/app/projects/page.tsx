@@ -47,13 +47,15 @@ export default function ProjectsPage() {
         const query = searchQuery.toLowerCase();
         const matchName = project.name.toLowerCase().includes(query);
         const matchDesc = project.description?.toLowerCase().includes(query);
-        const matchClient = project.client_name?.toLowerCase().includes(query);
+        const matchedClient = clients.find((c) => c.id === project.client_id);
+        const clientName = (project.client_name || matchedClient?.name || matchedClient?.company || '').toLowerCase();
+        const matchClient = clientName.includes(query);
         const matchTech = project.tech_stack?.some((t) => t.toLowerCase().includes(query));
         return matchName || matchDesc || matchClient || matchTech;
       }
       return true;
     });
-  }, [projects, activeStatusFilter, selectedClientId, searchQuery]);
+  }, [projects, clients, activeStatusFilter, selectedClientId, searchQuery]);
 
   const counts = useMemo(() => {
     return {

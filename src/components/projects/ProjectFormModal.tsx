@@ -173,8 +173,12 @@ export const ProjectFormModal: React.FC<ProjectFormModalProps> = ({
         .map((s) => s.trim())
         .filter(Boolean);
 
+      const selectedClient = clients.find((c) => c.id === clientId);
+      const client_name = selectedClient ? (selectedClient.company || selectedClient.name) : '';
+
       const payload = {
         client_id: clientId,
+        client_name,
         name: name.trim(),
         description: description.trim(),
         live_url: liveUrl.trim(),

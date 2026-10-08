@@ -17,7 +17,7 @@ import { FiDollarSign, FiSearch, FiCreditCard, FiEdit2, FiCheckCircle, FiFileTex
 type PaymentFilter = 'all' | PaymentStatus;
 
 export default function PaymentsPage() {
-  const { projects, metrics } = useData();
+  const { projects, clients, metrics } = useData();
 
   const [searchQuery, setSearchQuery] = useState('');
   const [activeFilter, setActiveFilter] = useState<PaymentFilter>('all');
@@ -34,12 +34,14 @@ export default function PaymentsPage() {
       if (searchQuery.trim()) {
         const query = searchQuery.toLowerCase();
         const matchName = project.name.toLowerCase().includes(query);
-        const matchClient = project.client_name?.toLowerCase().includes(query);
+        const matchedClient = clients.find((c) => c.id === project.client_id);
+        const clientName = (project.client_name || matchedClient?.name || matchedClient?.company || '').toLowerCase();
+        const matchClient = clientName.includes(query);
         return matchName || matchClient;
       }
       return true;
     });
-  }, [projects, activeFilter, searchQuery]);
+  }, [projects, clients, activeFilter, searchQuery]);
 
   const counts = useMemo(() => {
     return {
@@ -192,7 +194,13 @@ export default function PaymentsPage() {
                             {project.name}
                           </div>
                           <div className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">
-                            {project.client_name || 'Individual client'}
+                            {(() => {
+                              const matchedClient = clients.find((c) => c.id === project.client_id);
+                              const clientName =
+                                project.client_name ||
+                                (matchedClient ? (matchedClient.company ? `${matchedClient.name} (${matchedClient.company})` : matchedClient.name) : '');
+                              return clientName || 'Individual client';
+                            })()}
                           </div>
                         </td>
 

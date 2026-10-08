@@ -274,7 +274,13 @@ export default function DashboardPage() {
                           <PaymentStatusBadge status={project.payment_status} size="sm" />
                         </div>
                         <p className="text-xs text-slate-500 dark:text-slate-400 truncate mt-0.5">
-                          {project.client_name ? `Client: ${project.client_name}` : 'No client name'}
+                          {(() => {
+                            const matchedClient = clients.find((c) => c.id === project.client_id);
+                            const clientName =
+                              project.client_name ||
+                              (matchedClient ? (matchedClient.company ? `${matchedClient.name} (${matchedClient.company})` : matchedClient.name) : '');
+                            return clientName ? `Client: ${clientName}` : 'Individual client';
+                          })()}
                         </p>
                       </div>
 
