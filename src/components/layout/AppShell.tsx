@@ -42,11 +42,11 @@ export const AppShell: React.FC<AppShellProps> = ({ children, title, subtitle })
   }
 
   return (
-    <div className="min-h-screen bg-slate-50 dark:bg-slate-950 text-slate-900 dark:text-slate-100 flex transition-colors duration-200">
+    <div className="min-h-screen bg-slate-50 dark:bg-slate-950 text-slate-900 dark:text-slate-100 flex">
       {/* Desktop Sidebar Container with smooth width transition */}
       <div
         className={cn(
-          'hidden lg:block shrink-0 h-screen sticky top-0 transition-all duration-300 ease-in-out',
+          'hidden lg:block shrink-0 h-screen sticky top-0 transition-[width] duration-300 ease-in-out',
           isCollapsed ? 'w-20' : 'w-64'
         )}
       >

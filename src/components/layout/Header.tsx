@@ -25,7 +25,7 @@ export const Header: React.FC<HeaderProps> = ({
   const { isDark, toggleTheme } = useTheme();
 
   return (
-    <header className="h-16 bg-white dark:bg-slate-950 border-b border-slate-200/80 dark:border-slate-800/80 px-4 sm:px-6 flex items-center justify-between shrink-0 transition-colors">
+    <header className="h-16 bg-white dark:bg-slate-950 border-b border-slate-200/80 dark:border-slate-800/80 px-4 sm:px-6 flex items-center justify-between shrink-0">
       {/* Left Title & Menu/Sidebar Buttons */}
       <div className="flex items-center gap-3">
         {/* Mobile menu trigger */}

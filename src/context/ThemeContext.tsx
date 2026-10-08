@@ -15,8 +15,47 @@ const STORAGE_KEY = 'client_dashboard_theme_v1';
 
 const ThemeContext = createContext<ThemeContextType | undefined>(undefined);
 
+const disableAnimation = () => {
+  if (typeof document === 'undefined') return () => {};
+  const css = document.createElement('style');
+  css.appendChild(
+    document.createTextNode(
+      `*, *::before, *::after {
+        -webkit-transition: none !important;
+        -moz-transition: none !important;
+        -o-transition: none !important;
+        -ms-transition: none !important;
+        transition: none !important;
+      }`
+    )
+  );
+  document.head.appendChild(css);
+
+  return () => {
+    // Force a reflow
+    (() => window.getComputedStyle(document.body))();
+
+    // Re-enable transitions after browser paint
+    setTimeout(() => {
+      if (document.head.contains(css)) {
+        document.head.removeChild(css);
+      }
+    }, 1);
+  };
+};
+
 export const ThemeProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const [theme, setThemeState] = useState<Theme>('light');
+
+  const applyThemeClass = (targetTheme: Theme) => {
+    const enable = disableAnimation();
+    if (targetTheme === 'dark') {
+      document.documentElement.classList.add('dark');
+    } else {
+      document.documentElement.classList.remove('dark');
+    }
+    enable();
+  };
 
   useEffect(() => {
     if (typeof window !== 'undefined') {
@@ -43,11 +82,7 @@ export const ThemeProvider: React.FC<{ children: React.ReactNode }> = ({ childre
     setThemeState(newTheme);
     if (typeof window !== 'undefined') {
       localStorage.setItem(STORAGE_KEY, newTheme);
-      if (newTheme === 'dark') {
-        document.documentElement.classList.add('dark');
-      } else {
-        document.documentElement.classList.remove('dark');
-      }
+      applyThemeClass(newTheme);
     }
   }, []);
 
@@ -56,11 +91,7 @@ export const ThemeProvider: React.FC<{ children: React.ReactNode }> = ({ childre
       const next = prev === 'dark' ? 'light' : 'dark';
       if (typeof window !== 'undefined') {
         localStorage.setItem(STORAGE_KEY, next);
-        if (next === 'dark') {
-          document.documentElement.classList.add('dark');
-        } else {
-          document.documentElement.classList.remove('dark');
-        }
+        applyThemeClass(next);
       }
       return next;
     });

@@ -45,7 +45,7 @@ export const Sidebar: React.FC<SidebarProps> = ({ onNavigate, isMobileDrawer = f
   return (
     <aside
       className={cn(
-        'h-full bg-white dark:bg-slate-950 border-r border-slate-200/80 dark:border-slate-800/80 flex flex-col justify-between select-none transition-all duration-300 ease-in-out relative',
+        'h-full bg-white dark:bg-slate-950 border-r border-slate-200/80 dark:border-slate-800/80 flex flex-col justify-between select-none transition-[width] duration-300 ease-in-out relative',
         isCollapsed ? 'w-20' : 'w-64'
       )}
     >
@@ -54,7 +54,7 @@ export const Sidebar: React.FC<SidebarProps> = ({ onNavigate, isMobileDrawer = f
         {/* Brand Header */}
         <div
           className={cn(
-            'border-b border-slate-100 dark:border-slate-800/80 flex items-center transition-all duration-300',
+            'border-b border-slate-100 dark:border-slate-800/80 flex items-center transition-[padding] duration-300',
             isCollapsed ? 'p-3 justify-center' : 'p-4 justify-between'
           )}
         >
@@ -152,7 +152,7 @@ export const Sidebar: React.FC<SidebarProps> = ({ onNavigate, isMobileDrawer = f
       </div>
 
       {/* Bottom Section: User Profile & Collapse Toggle */}
-      <div className={cn('border-t border-slate-100 dark:border-slate-800/80 transition-all', isCollapsed ? 'p-2' : 'p-3')}>
+      <div className={cn('border-t border-slate-100 dark:border-slate-800/80 transition-[padding]', isCollapsed ? 'p-2' : 'p-3')}>
         {/* Toggle button when collapsed */}
         {isCollapsed && !isMobileDrawer && (
           <div className="mb-2 flex justify-center">
