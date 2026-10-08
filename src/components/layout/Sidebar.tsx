@@ -67,7 +67,7 @@ export const Sidebar: React.FC<SidebarProps> = ({ onNavigate, isMobileDrawer = f
             onClick={onNavigate}
             title={isCollapsed ? workspaceSettings.name || 'Client Hub' : undefined}
           >
-            <div className="w-9 h-9 rounded-xl bg-slate-900 dark:bg-slate-100 text-white dark:text-slate-900 flex items-center justify-center font-bold text-sm shadow-xs overflow-hidden shrink-0 relative transition-transform group-hover:scale-105">
+            <div className="w-9 h-9 rounded-xl bg-slate-900 text-white flex items-center justify-center font-bold text-sm shadow-xs overflow-hidden shrink-0 relative transition-transform group-hover:scale-105 border border-slate-800">
               {workspaceSettings.logoUrl ? (
                 // eslint-disable-next-line @next/next/no-img-element
                 <img

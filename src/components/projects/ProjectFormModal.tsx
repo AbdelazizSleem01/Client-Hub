@@ -221,14 +221,14 @@ export const ProjectFormModal: React.FC<ProjectFormModalProps> = ({
     >
       <form onSubmit={handleSubmit} className="space-y-4">
         {/* Navigation Tabs */}
-        <div className="flex border-b border-slate-200">
+        <div className="flex border-b border-slate-200 dark:border-slate-800">
           <button
             type="button"
             onClick={() => setActiveTab('details')}
             className={`px-4 py-2 text-xs font-semibold border-b-2 transition-colors ${
               activeTab === 'details'
-                ? 'border-slate-900 text-slate-900'
-                : 'border-transparent text-slate-500 hover:text-slate-800'
+                ? 'border-slate-900 text-slate-900 dark:border-slate-100 dark:text-slate-100'
+                : 'border-transparent text-slate-500 dark:text-slate-400 hover:text-slate-800 dark:hover:text-slate-200'
             }`}
           >
             1. General Info
@@ -238,8 +238,8 @@ export const ProjectFormModal: React.FC<ProjectFormModalProps> = ({
             onClick={() => setActiveTab('links')}
             className={`px-4 py-2 text-xs font-semibold border-b-2 transition-colors ${
               activeTab === 'links'
-                ? 'border-slate-900 text-slate-900'
-                : 'border-transparent text-slate-500 hover:text-slate-800'
+                ? 'border-slate-900 text-slate-900 dark:border-slate-100 dark:text-slate-100'
+                : 'border-transparent text-slate-500 dark:text-slate-400 hover:text-slate-800 dark:hover:text-slate-200'
             }`}
           >
             2. Deployment & URLs
@@ -249,8 +249,8 @@ export const ProjectFormModal: React.FC<ProjectFormModalProps> = ({
             onClick={() => setActiveTab('financials')}
             className={`px-4 py-2 text-xs font-semibold border-b-2 transition-colors ${
               activeTab === 'financials'
-                ? 'border-slate-900 text-slate-900'
-                : 'border-transparent text-slate-500 hover:text-slate-800'
+                ? 'border-slate-900 text-slate-900 dark:border-slate-100 dark:text-slate-100'
+                : 'border-transparent text-slate-500 dark:text-slate-400 hover:text-slate-800 dark:hover:text-slate-200'
             }`}
           >
             3. Financials
@@ -342,7 +342,7 @@ export const ProjectFormModal: React.FC<ProjectFormModalProps> = ({
                       d.setDate(d.getDate() + 7);
                       setDeadline(d.toISOString().split('T')[0]);
                     }}
-                    className="px-2.5 py-1.5 rounded-lg border border-slate-200 text-xs font-medium text-slate-600 hover:bg-slate-50 transition-colors whitespace-nowrap"
+                    className="px-2.5 py-1.5 rounded-lg border border-slate-200 dark:border-slate-800 text-xs font-medium text-slate-600 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors whitespace-nowrap"
                   >
                     +1 Week
                   </button>
@@ -353,7 +353,7 @@ export const ProjectFormModal: React.FC<ProjectFormModalProps> = ({
                       d.setDate(d.getDate() + 14);
                       setDeadline(d.toISOString().split('T')[0]);
                     }}
-                    className="px-2.5 py-1.5 rounded-lg border border-slate-200 text-xs font-medium text-slate-600 hover:bg-slate-50 transition-colors whitespace-nowrap"
+                    className="px-2.5 py-1.5 rounded-lg border border-slate-200 dark:border-slate-800 text-xs font-medium text-slate-600 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors whitespace-nowrap"
                   >
                     +2 Weeks
                   </button>
@@ -364,7 +364,7 @@ export const ProjectFormModal: React.FC<ProjectFormModalProps> = ({
                       d.setMonth(d.getMonth() + 1);
                       setDeadline(d.toISOString().split('T')[0]);
                     }}
-                    className="px-2.5 py-1.5 rounded-lg border border-slate-200 text-xs font-medium text-slate-600 hover:bg-slate-50 transition-colors whitespace-nowrap"
+                    className="px-2.5 py-1.5 rounded-lg border border-slate-200 dark:border-slate-800 text-xs font-medium text-slate-600 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors whitespace-nowrap"
                   >
                     +1 Month
                   </button>
@@ -433,8 +433,8 @@ export const ProjectFormModal: React.FC<ProjectFormModalProps> = ({
 
                 {/* Live Thumbnail Preview */}
                 {imageUrl && (
-                  <div className="shrink-0 flex items-center gap-3 p-2 rounded-xl bg-slate-50 border border-slate-200/80">
-                    <div className="w-14 h-14 rounded-xl bg-white border border-slate-200/90 flex items-center justify-center overflow-hidden relative shadow-2xs">
+                  <div className="shrink-0 flex items-center gap-3 p-2 rounded-xl bg-slate-50 dark:bg-slate-800/60 border border-slate-200/80 dark:border-slate-700">
+                    <div className="w-14 h-14 rounded-xl bg-white dark:bg-slate-900 border border-slate-200/90 dark:border-slate-700 flex items-center justify-center overflow-hidden relative shadow-2xs">
                       {/* eslint-disable-next-line @next/next/no-img-element */}
                       <img
                         src={imageUrl.startsWith('data:') ? imageUrl : `/api/proxy-image?url=${encodeURIComponent(imageUrl)}`}
@@ -565,32 +565,32 @@ export const ProjectFormModal: React.FC<ProjectFormModalProps> = ({
             </div>
 
             {/* Live Calculation Display */}
-            <div className="p-4 rounded-xl bg-slate-50 border border-slate-200/90 space-y-3">
-              <h4 className="text-xs font-semibold text-slate-800 uppercase tracking-wider">
+            <div className="p-4 rounded-xl bg-slate-50 dark:bg-slate-800/50 border border-slate-200/90 dark:border-slate-700 space-y-3">
+              <h4 className="text-xs font-semibold text-slate-800 dark:text-slate-200 uppercase tracking-wider">
                 Financial Summary & Calculation
               </h4>
               <div className="grid grid-cols-2 sm:grid-cols-3 gap-3 text-sm">
                 <div>
-                  <span className="text-xs text-slate-500 block">Total Agreed:</span>
-                  <span className="font-semibold text-slate-900">{formatCurrency(numericTotal, currency)}</span>
+                  <span className="text-xs text-slate-500 dark:text-slate-400 block">Total Agreed:</span>
+                  <span className="font-semibold text-slate-900 dark:text-slate-100">{formatCurrency(numericTotal, currency)}</span>
                 </div>
                 <div>
-                  <span className="text-xs text-emerald-600 block">Collected:</span>
-                  <span className="font-semibold text-emerald-700">{formatCurrency(numericPaid, currency)}</span>
+                  <span className="text-xs text-emerald-600 dark:text-emerald-400 block">Collected:</span>
+                  <span className="font-semibold text-emerald-700 dark:text-emerald-400">{formatCurrency(numericPaid, currency)}</span>
                 </div>
-                <div className="col-span-2 sm:col-span-1 p-2 rounded-lg bg-amber-50 border border-amber-200">
-                  <span className="text-xs text-amber-800 font-medium block">
+                <div className="col-span-2 sm:col-span-1 p-2 rounded-lg bg-amber-50 dark:bg-amber-950/40 border border-amber-200 dark:border-amber-800/60">
+                  <span className="text-xs text-amber-800 dark:text-amber-300 font-medium block">
                     Remaining Balance:
                   </span>
-                  <span className="text-base font-bold text-amber-900">
+                  <span className="text-base font-bold text-amber-900 dark:text-amber-200">
                     {formatCurrency(remainingAmount, currency)}
                   </span>
                 </div>
               </div>
 
-              <div className="pt-2 border-t border-slate-200/60 flex items-center justify-between text-xs text-slate-500">
-                <span>Calculated formula: <code className="text-slate-700">Remaining = Total - Paid</code></span>
-                <span className="font-medium capitalize text-slate-700">
+              <div className="pt-2 border-t border-slate-200/60 dark:border-slate-700 flex items-center justify-between text-xs text-slate-500 dark:text-slate-400">
+                <span>Calculated formula: <code className="text-slate-700 dark:text-slate-300">Remaining = Total - Paid</code></span>
+                <span className="font-medium capitalize text-slate-700 dark:text-slate-300">
                   Status: <strong>{paymentStatus.replace('_', ' ')}</strong>
                 </span>
               </div>
@@ -599,7 +599,7 @@ export const ProjectFormModal: React.FC<ProjectFormModalProps> = ({
         )}
 
         {/* Modal Footer */}
-        <div className="flex items-center justify-between pt-4 border-t border-slate-100">
+        <div className="flex items-center justify-between pt-4 border-t border-slate-100 dark:border-slate-800">
           <div className="text-xs text-slate-400">
             {activeTab === 'details' && 'Step 1 of 3'}
             {activeTab === 'links' && 'Step 2 of 3'}

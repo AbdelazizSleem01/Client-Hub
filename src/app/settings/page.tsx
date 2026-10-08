@@ -162,7 +162,7 @@ export default function SettingsPage() {
         <Card>
           <CardHeader>
             <div className="flex items-center gap-2">
-              <FiBriefcase className="w-4 h-4 text-slate-700" />
+              <FiBriefcase className="w-4 h-4 text-slate-700 dark:text-slate-300" />
               <CardTitle>Workspace Branding</CardTitle>
             </div>
           </CardHeader>
@@ -186,13 +186,13 @@ export default function SettingsPage() {
             </div>
 
             {/* Logo Configuration */}
-            <div className="space-y-3 pt-3 border-t border-slate-100">
+            <div className="space-y-3 pt-3 border-t border-slate-100 dark:border-slate-800">
               <div className="flex items-center justify-between">
                 <div>
-                  <label className="text-xs font-semibold text-slate-800 uppercase tracking-wider block">
+                  <label className="text-xs font-semibold text-slate-800 dark:text-slate-200 uppercase tracking-wider block">
                     Website Logo
                   </label>
-                  <p className="text-xs text-slate-400 mt-0.5">
+                  <p className="text-xs text-slate-400 dark:text-slate-500 mt-0.5">
                     Upload your custom logo icon to display in the sidebar brand header
                   </p>
                 </div>
@@ -200,7 +200,7 @@ export default function SettingsPage() {
                   <button
                     type="button"
                     onClick={handleRemoveLogo}
-                    className="text-xs text-rose-600 hover:text-rose-700 flex items-center gap-1.5 font-medium transition-colors px-2.5 py-1 rounded-lg hover:bg-rose-50"
+                    className="text-xs text-rose-600 hover:text-rose-700 dark:text-rose-400 dark:hover:text-rose-300 flex items-center gap-1.5 font-medium transition-colors px-2.5 py-1 rounded-lg hover:bg-rose-50 dark:hover:bg-rose-950/40"
                   >
                     <FiTrash2 className="w-3.5 h-3.5" />
                     Reset to Default Logo
@@ -228,13 +228,13 @@ export default function SettingsPage() {
                     className={cn(
                       'relative group border-2 border-dashed rounded-2xl p-6 flex flex-col items-center justify-center text-center cursor-pointer transition-all duration-200 min-h-[175px]',
                       isDragging
-                        ? 'border-slate-900 bg-slate-100/80 scale-[0.99]'
-                        : 'border-slate-200/90 hover:border-slate-400 hover:bg-slate-50/80 bg-slate-50/40'
+                        ? 'border-slate-900 dark:border-slate-100 bg-slate-100/80 dark:bg-slate-800/80 scale-[0.99]'
+                        : 'border-slate-200/90 dark:border-slate-800 hover:border-slate-400 dark:hover:border-slate-700 hover:bg-slate-50/80 dark:hover:bg-slate-900/80 bg-slate-50/40 dark:bg-slate-900/40'
                     )}
                   >
                     {siteLogoUrl ? (
                       <div className="flex flex-col items-center gap-3">
-                        <div className="w-16 h-16 rounded-2xl bg-white border border-slate-200/90 shadow-sm flex items-center justify-center p-2 relative group-hover:scale-105 transition-transform overflow-hidden">
+                        <div className="w-16 h-16 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200/90 dark:border-slate-700 shadow-sm flex items-center justify-center p-2 relative group-hover:scale-105 transition-transform overflow-hidden">
                           {/* eslint-disable-next-line @next/next/no-img-element */}
                           <img
                             src={siteLogoUrl}
@@ -243,25 +243,25 @@ export default function SettingsPage() {
                           />
                         </div>
                         <div>
-                          <div className="flex items-center justify-center gap-1.5 text-xs font-semibold text-emerald-700">
+                          <div className="flex items-center justify-center gap-1.5 text-xs font-semibold text-emerald-700 dark:text-emerald-400">
                             <FiCheckCircle className="w-3.5 h-3.5" />
                             <span>Custom Logo Loaded</span>
                           </div>
-                          <p className="text-[11px] text-slate-500 mt-1">
+                          <p className="text-[11px] text-slate-500 dark:text-slate-400 mt-1">
                             Click or drag a new image file to replace
                           </p>
                         </div>
                       </div>
                     ) : (
                       <div className="flex flex-col items-center gap-2.5">
-                        <div className="w-12 h-12 rounded-2xl bg-white border border-slate-200 shadow-2xs flex items-center justify-center text-slate-600 group-hover:text-slate-900 group-hover:scale-110 transition-all">
+                        <div className="w-12 h-12 rounded-2xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 shadow-2xs flex items-center justify-center text-slate-600 dark:text-slate-300 group-hover:text-slate-900 dark:group-hover:text-slate-100 group-hover:scale-110 transition-all">
                           <FiUploadCloud className="w-6 h-6" />
                         </div>
                         <div>
-                          <p className="text-xs font-semibold text-slate-800">
-                            Click to upload <span className="font-normal text-slate-500">or drag and drop</span>
+                          <p className="text-xs font-semibold text-slate-800 dark:text-slate-200">
+                            Click to upload <span className="font-normal text-slate-500 dark:text-slate-400">or drag and drop</span>
                           </p>
-                          <p className="text-[11px] text-slate-400 mt-1">
+                          <p className="text-[11px] text-slate-400 dark:text-slate-500 mt-1">
                             PNG, JPG, WebP, SVG • Maximum 2MB (Square ratio recommended)
                           </p>
                         </div>
@@ -272,19 +272,19 @@ export default function SettingsPage() {
 
                 {/* Live Preview Box (5 columns) */}
                 <div className="lg:col-span-5 flex flex-col">
-                  <div className="p-4 rounded-2xl bg-slate-50/80 border border-slate-200/80 flex-1 flex flex-col justify-between">
+                  <div className="p-4 rounded-2xl bg-slate-50/80 dark:bg-slate-900/60 border border-slate-200/80 dark:border-slate-800 flex-1 flex flex-col justify-between">
                     <div>
                       <div className="flex items-center justify-between mb-3">
-                        <span className="text-[11px] font-semibold text-slate-500 uppercase tracking-wider flex items-center gap-1.5">
-                          <FiEye className="w-3.5 h-3.5 text-slate-400" />
+                        <span className="text-[11px] font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider flex items-center gap-1.5">
+                          <FiEye className="w-3.5 h-3.5 text-slate-400 dark:text-slate-500" />
                           Sidebar Preview
                         </span>
-                        <span className="text-[10px] text-slate-400 font-mono">Header Pill</span>
+                        <span className="text-[10px] text-slate-400 dark:text-slate-500 font-mono">Header Pill</span>
                       </div>
 
                       {/* Mini Sidebar Preview Pill */}
-                      <div className="w-full p-3 rounded-xl bg-white border border-slate-200/90 flex items-center gap-3 shadow-xs">
-                        <div className="w-10 h-10 rounded-xl bg-slate-900 text-white flex items-center justify-center font-bold text-sm shadow-xs overflow-hidden shrink-0">
+                      <div className="w-full p-3 rounded-xl bg-white dark:bg-slate-950 border border-slate-200/90 dark:border-slate-800 flex items-center gap-3 shadow-xs">
+                        <div className="w-10 h-10 rounded-xl bg-slate-900 text-white flex items-center justify-center font-bold text-sm shadow-xs overflow-hidden shrink-0 border border-transparent dark:border-slate-800">
                           {siteLogoUrl ? (
                             // eslint-disable-next-line @next/next/no-img-element
                             <img
@@ -297,17 +297,17 @@ export default function SettingsPage() {
                           )}
                         </div>
                         <div className="min-w-0 text-left flex-1">
-                          <span className="font-semibold text-slate-900 text-sm tracking-tight block truncate">
+                          <span className="font-semibold text-slate-900 dark:text-slate-100 text-sm tracking-tight block truncate">
                             {siteName || 'Client Hub'}
                           </span>
-                          <span className="text-[10px] text-slate-400 font-medium tracking-wide uppercase block truncate">
+                          <span className="text-[10px] text-slate-400 dark:text-slate-500 font-medium tracking-wide uppercase block truncate">
                             {siteTagline || 'Workspace'}
                           </span>
                         </div>
                       </div>
                     </div>
 
-                    <p className="text-[10px] text-slate-400 mt-3 text-center">
+                    <p className="text-[10px] text-slate-400 dark:text-slate-500 mt-3 text-center">
                       Shows how your logo & workspace name appear in the sidebar header.
                     </p>
                   </div>
@@ -315,7 +315,7 @@ export default function SettingsPage() {
               </div>
             </div>
 
-            <div className="pt-2 border-t border-slate-100 flex justify-end">
+            <div className="pt-2 border-t border-slate-100 dark:border-slate-800 flex justify-end">
               <Button type="submit" variant="primary" size="md" isLoading={isSavingBranding}>
                 Save Branding
               </Button>

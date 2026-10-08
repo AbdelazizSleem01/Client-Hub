@@ -70,22 +70,22 @@ export const PaymentRecordModal: React.FC<PaymentRecordModalProps> = ({
     >
       <form onSubmit={handleSubmit} className="space-y-4">
         {/* Project Balance Status */}
-        <div className="p-3.5 rounded-xl bg-slate-50 border border-slate-200/80 space-y-2">
+        <div className="p-3.5 rounded-xl bg-slate-50 dark:bg-slate-800/60 border border-slate-200/80 dark:border-slate-700 space-y-2">
           <div className="flex justify-between text-xs">
-            <span className="text-slate-500">Total Price:</span>
-            <span className="font-semibold text-slate-900">
+            <span className="text-slate-500 dark:text-slate-400">Total Price:</span>
+            <span className="font-semibold text-slate-900 dark:text-slate-100">
               {formatCurrency(project.total_price, project.currency)}
             </span>
           </div>
           <div className="flex justify-between text-xs">
-            <span className="text-emerald-700">Already Paid:</span>
-            <span className="font-semibold text-emerald-800">
+            <span className="text-emerald-700 dark:text-emerald-400">Already Paid:</span>
+            <span className="font-semibold text-emerald-800 dark:text-emerald-300">
               {formatCurrency(project.amount_paid, project.currency)}
             </span>
           </div>
-          <div className="flex justify-between text-xs pt-1.5 border-t border-slate-200">
-            <span className="text-amber-800 font-semibold">Remaining Balance:</span>
-            <span className="font-bold text-amber-900">
+          <div className="flex justify-between text-xs pt-1.5 border-t border-slate-200 dark:border-slate-700">
+            <span className="text-amber-800 dark:text-amber-300 font-semibold">Remaining Balance:</span>
+            <span className="font-bold text-amber-900 dark:text-amber-200">
               {formatCurrency(currentRemaining, project.currency)}
             </span>
           </div>
@@ -114,15 +114,15 @@ export const PaymentRecordModal: React.FC<PaymentRecordModalProps> = ({
             <button
               type="button"
               onClick={handlePayRemaining}
-              className="mt-1.5 text-xs text-slate-500 hover:text-slate-900 underline flex items-center gap-1 font-medium"
+              className="mt-1.5 text-xs text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-100 underline flex items-center gap-1 font-medium"
             >
-              <FiCheckCircle className="w-3 h-3 text-emerald-600" />
+              <FiCheckCircle className="w-3 dot text-emerald-600 dark:text-emerald-400" />
               Pay full remaining amount ({formatCurrency(currentRemaining, project.currency)})
             </button>
           )}
         </div>
 
-        <div className="flex items-center justify-end gap-3 pt-3 border-t border-slate-100">
+        <div className="flex items-center justify-end gap-3 pt-3 border-t border-slate-100 dark:border-slate-800">
           <Button type="button" variant="secondary" size="sm" onClick={onClose} disabled={isSubmitting}>
             Cancel
           </Button>
