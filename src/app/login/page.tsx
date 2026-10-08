@@ -21,12 +21,11 @@ import {
 
 export default function LoginPage() {
   const router = useRouter();
-  const { user, login, signUp, isLoading } = useAuth();
+  const { user, login, isLoading } = useAuth();
   const { settings: workspaceSettings } = useWorkspace();
   const { isDark, toggleTheme } = useTheme();
   const toast = useToast();
 
-  const [mode, setMode] = useState<'signin' | 'signup'>('signin');
   const [email, setEmail] = useState('owner@workspace.dev');
   const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
@@ -54,31 +53,14 @@ export default function LoginPage() {
     setError('');
 
     const effectiveDuration = rememberMe ? rememberDuration : 'session';
+    const res = await login(password, email, effectiveDuration);
 
-    if (mode === 'signup') {
-      const res = await signUp(password, email, effectiveDuration);
-      if (res.success) {
-        toast.success('Owner account created successfully!');
-        const loginRes = await login(password, email, effectiveDuration);
-        if (loginRes.success) {
-          router.push('/dashboard');
-        } else {
-          setMode('signin');
-          toast.info('Account created. Please sign in now.');
-        }
-      } else {
-        setError(res.error || 'Failed to create account');
-        toast.error(res.error || 'Registration failed');
-      }
+    if (res.success) {
+      toast.success('Welcome back! Logged in successfully.');
+      router.push('/dashboard');
     } else {
-      const res = await login(password, email, effectiveDuration);
-      if (res.success) {
-        toast.success('Welcome back! Logged in successfully.');
-        router.push('/dashboard');
-      } else {
-        setError(res.error || 'Authentication failed');
-        toast.error(res.error || 'Invalid credentials');
-      }
+      setError(res.error || 'Authentication failed');
+      toast.error(res.error || 'Invalid credentials');
     }
 
     setIsSubmitting(false);
@@ -124,36 +106,14 @@ export default function LoginPage() {
 
         {/* Card */}
         <div className="mt-8 bg-white dark:bg-slate-900 py-8 px-6 shadow-sm border border-slate-200/80 dark:border-slate-800 rounded-2xl sm:px-8">
-          {/* Mode Switcher Tabs */}
-          <div className="flex rounded-xl bg-slate-100 dark:bg-slate-950 p-1 mb-6 border border-transparent dark:border-slate-800/80">
-            <button
-              type="button"
-              onClick={() => {
-                setMode('signin');
-                setError('');
-              }}
-              className={`flex-1 py-1.5 text-xs font-semibold rounded-lg transition-all ${
-                mode === 'signin'
-                  ? 'bg-white dark:bg-slate-800 text-slate-900 dark:text-slate-100 shadow-xs'
-                  : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-200'
-              }`}
-            >
-              Sign In
-            </button>
-            <button
-              type="button"
-              onClick={() => {
-                setMode('signup');
-                setError('');
-              }}
-              className={`flex-1 py-1.5 text-xs font-semibold rounded-lg transition-all ${
-                mode === 'signup'
-                  ? 'bg-white dark:bg-slate-800 text-slate-900 dark:text-slate-100 shadow-xs'
-                  : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-200'
-              }`}
-            >
-              Create Account
-            </button>
+          <div className="mb-6 pb-4 border-b border-slate-100 dark:border-slate-800 flex items-center justify-between">
+            <div>
+              <h3 className="text-sm font-bold text-slate-900 dark:text-slate-100">Owner Access</h3>
+              <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">Enter credentials to unlock workspace</p>
+            </div>
+            <span className="text-[11px] font-semibold px-2 py-0.5 rounded-full bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 border border-slate-200/80 dark:border-slate-700">
+              Private
+            </span>
           </div>
 
           <form onSubmit={handleSubmit} className="space-y-4">
@@ -240,7 +200,7 @@ export default function LoginPage() {
               className="w-full mt-2"
               isLoading={isSubmitting}
             >
-              {mode === 'signin' ? 'Sign In to Dashboard' : 'Create Owner Account'}
+              Sign In to Dashboard
             </Button>
           </form>
         </div>
